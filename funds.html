@@ -1,283 +1,247 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NUKRAX CRYPTO GATEWAY</title>
+<title>Nukrax Funds</title>
 
 <style>
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:url('https://i.postimg.cc/wxt5X75s/Select-Your-favourite-Crypto-20260221-142709-0000.png') no-repeat center center fixed;
-  background-size: cover;
-  display:flex;
-  justify-content:center;
-  padding:25px 10px;
+  background:#f3f3f3;
+  color:#111;
 }
 
-
-
+/* HEADER */
 .header{
-  letter-spacing:6px;
-  font-weight:900;
-  margin-bottom:5px;
-}
-
-.handle{
-  text-align:right;
-  font-weight:900;
-  margin-bottom:20px;
-}
-
-.handle a,
-.footer a{
-  text-decoration:none;
-  color:inherit;
-}
-
-.username{
-  text-decoration:underline;
-}
-
-.section-title{
-  letter-spacing:4px;
-  margin-bottom:20px;
-  color:#555;
-}
-
-.crypto-btn{
-  position:relative;
   display:flex;
   align-items:center;
-  justify-content:center;
-  width:100%;
-  padding:16px;
-  margin-bottom:15px;
-  border-radius:14px;
-  border:none;
-  background: rgba(255,255,255,0.2);
-  cursor:pointer;
-  box-shadow:0 6px 15px rgba(0,0,0,0.25);
-  font-weight:600;
-  letter-spacing:3px;
-  transition:0.2s;
-}
-
-.crypto-btn:hover{
-  transform:scale(1.02);
-}
-
-.crypto-btn img{
-  position:absolute;
-  left:18px;
-  width:30px;
-  height:30px;
-  border-radius:5px;
-}
-
-.popup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.65);
-  display:none;
-  justify-content:center;
-  align-items:center;
+  justify-content:space-between;
   padding:15px;
-}
-
-.popup-content{
   background:#fff;
-  padding:28px;
-  border-radius:22px;
-  width:360px;
-  max-width:100%;
-  text-align:center;
-  animation:pop 0.25s ease;
+  box-shadow:0 2px 12px rgba(0,0,0,0.06);
 }
 
-@keyframes pop{
-  from{transform:scale(0.9); opacity:0;}
-  to{transform:scale(1); opacity:1;}
+.logo{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  height:28px;
 }
 
-.crypto-top{
+.back-btn{
+  background:#e6e6e6;
+  border:none;
+  padding:8px 14px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  margin:15px;
+  padding:15px;
+  border-radius:16px;
+  box-shadow:0 4px 18px rgba(0,0,0,0.05);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+}
+
+.row{
   display:flex;
-  flex-direction:column;
+  justify-content:space-between;
   align-items:center;
-  gap:6px;
-}
-
-.crypto-top img{
-  width:32px;
-  height:32px;
-}
-
-.qr-wrapper{
-  margin-top:15px;
-}
-
-.qr-wrapper canvas{
-  width:260px;
-  height:260px;
+  cursor:pointer;
 }
 
 .address{
-  margin:15px 0;
+  margin-top:8px;
+  font-size:12px;
+  color:#555;
   word-break:break-all;
-  font-size:14px;
 }
 
+/* BUTTON */
 .copy-btn{
-  background:#000;
+  background:#4d4d4d;
   color:#fff;
   border:none;
-  padding:10px 20px;
+  padding:6px 12px;
   border-radius:10px;
   cursor:pointer;
-  margin-top:8px;
-  font-weight:600;
 }
 
-.notice{
-  margin-top:12px;
-  font-size:13px;
-  color:#d40000;
+/* TOAST */
+.toast{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:#111;
+  color:#fff;
+  padding:10px 18px;
+  border-radius:10px;
+  opacity:0;
+  transition:0.3s;
+}
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 
-.footer{
-  margin-top:25px;
-  font-weight:900;
+/* QR MODAL */
+.qr-modal{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s;
 }
 
-.top-logo img{
-  width:240px;
-  height:120px;
-  object-fit:cover;
-  margin-bottom:20px;
-  display:block;
-  margin-left:auto;
-  margin-right:auto;
-  border-radius:5px;
+.qr-modal.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.qr-box{
+  background:#fff;
+  padding:20px;
+  border-radius:16px;
+  text-align:center;
+  animation:fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn{
+  from{transform:scale(0.9); opacity:0;}
+  to{transform:scale(1); opacity:1;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
-  <div class="top-logo">
-    <img src="https://i.postimg.cc/Lsjwc3nD/1000013393-Picsart-Ai-Image-Enhancer.png" alt="NUKRAX Logo">
-  </div>
-
-  <div class="header">NUKRAX CRYPTO GATEWAY</div>
-
-  <div class="handle">
-    <a href="https://linktr.ee/CosmoLanex" target="_blank">@<span class="username">cosmolanex</span></a>
-  </div>
-
-  <div class="section-title">SELECT YOUR FAVOURITE CRYPTO</div>
-
-  <button class="crypto-btn" onclick="openCrypto('USDT / TRC20','TR3VgpXVS2rDMNwwCeR4DPdre5URfC9cQo','https://i.postimg.cc/c4DMNwcm/1000013208-removebg-preview.png','TRC20','Please use TRC20 network')">
-    <img src="https://i.postimg.cc/c4DMNwcm/1000013208-removebg-preview.png">
-    USDT - TRC20
-  </button>
-
-  <button class="crypto-btn" onclick="openCrypto('BITCOIN','bc1qk2t0uvv4j7kfzpn8mvt8uxtt6cq0dnkp4dgeas','https://i.postimg.cc/nrfCpDbk/1000013214-removebg-preview.png')">
-    <img src="https://i.postimg.cc/nrfCpDbk/1000013214-removebg-preview.png">
-    BITCOIN
-  </button>
-
-  <button class="crypto-btn" onclick="openCrypto('ETHEREUM','0x0F50eeb9F646f1A67c68e571BDe22C4426edaeB6','https://i.postimg.cc/MHStvwcc/1000013215-removebg-preview.png')">
-    <img src="https://i.postimg.cc/MHStvwcc/1000013215-removebg-preview.png">
-    ETHEREUM
-  </button>
-
-  <button class="crypto-btn" onclick="openCrypto('SOLANA','Dp5YavkzJ5Chtq6rFKnim7WR3xXksJVKg5iTKZjZZH7W','https://i.postimg.cc/prc93YtP/1000013161-removebg-preview.png')">
-    <img src="https://i.postimg.cc/prc93YtP/1000013161-removebg-preview.png">
-    SOLANA
-  </button>
-
-  <button class="crypto-btn" onclick="openCrypto('XRP','rNxp4h8apvRis6mJf9Sh8C6iRxfrDWN7AV','https://i.postimg.cc/MpMR24T7/1000013210-removebg-preview.png','XRP','Use XRP tag/memo: 437079162','437079162')">
-    <img src="https://i.postimg.cc/MpMR24T7/1000013210-removebg-preview.png">
-    XRP
-  </button>
-
-  <button class="crypto-btn" onclick="openCrypto('TRON','TR3VgpXVS2rDMNwwCeR4DPdre5URfC9cQo','https://i.postimg.cc/qRkzRZJk/1000013211-removebg-preview.png')">
-    <img src="https://i.postimg.cc/qRkzRZJk/1000013211-removebg-preview.png">
-    TRON
-  </button>
-
-  <button class="crypto-btn" onclick="openCrypto('BNB','0x3391cc7250b2b035f38259cb2b49d2ad014d718b','https://i.postimg.cc/9QZMBjzc/1000013213-removebg-preview.png')">
-    <img src="https://i.postimg.cc/9QZMBjzc/1000013213-removebg-preview.png">
-    BINANCE
-  </button>
-
-  <div class="footer">
-    nukrax crypto gateway created by <a href="https://linktr.ee/CosmoLanex" target="_blank">@<span class="username">CosmoLanex</span></a>
-  </div>
-
+<div class="header">
+  <button class="back-btn" onclick="goBack()">← Back</button>
+  <img src="nukrax.png" class="logo">
 </div>
 
-<div class="popup" id="cryptoPopup">
-  <div class="popup-content">
-    <div class="crypto-top">
-      <img id="cryptoLogo" src="">
-      <div id="cryptoName"></div>
-    </div>
-    <div class="qr-wrapper">
-      <canvas id="cryptoQR"></canvas>
-    </div>
-    <div class="address" id="cryptoAddress"></div>
-    <button class="copy-btn" id="copyAddressBtn">COPY ADDRESS</button>
-    <button class="copy-btn" id="copyMemoBtn" style="display:none; margin-left:10px;">COPY MEMO</button>
-    <div class="notice" id="cryptoNotice"></div>
+<!-- USDT -->
+<div class="card" onclick="showQR('TR3VgpXVS2rDMNwwCeR4DPdre5URfC9cQo')">
+  <div class="row">
+    <img src="usdt.png" height="25">
+    <button class="copy-btn" onclick="event.stopPropagation(); copyText('usdt')">Copy</button>
+  </div>
+  <div id="usdt" class="address">TR3VgpXVS2rDMNwwCeR4DPdre5URfC9cQo</div>
+</div>
+
+<!-- BTC -->
+<div class="card" onclick="showQR('bc1qk2t0uvv4j7kfzpn8mvt8uxtt6cq0dnkp4dgeas')">
+  <div class="row">
+    <img src="btc.png" height="25">
+    <button class="copy-btn" onclick="event.stopPropagation(); copyText('btc')">Copy</button>
+  </div>
+  <div id="btc" class="address">bc1qk2t0uvv4j7kfzpn8mvt8uxtt6cq0dnkp4dgeas</div>
+</div>
+
+<!-- ETH -->
+<div class="card" onclick="showQR('0x0F50eeb9F646f1A67c68e571BDe22C4426edaeB6')">
+  <div class="row">
+    <img src="eth.png" height="25">
+    <button class="copy-btn" onclick="event.stopPropagation(); copyText('eth')">Copy</button>
+  </div>
+  <div id="eth" class="address">0x0F50eeb9F646f1A67c68e571BDe22C4426edaeB6</div>
+</div>
+
+<!-- SOL -->
+<div class="card" onclick="showQR('Dp5YavkzJ5Chtq6rFKnim7WR3xXksJVKg5iTKZjZZH7W')">
+  <div class="row">
+    <img src="sol.png" height="25">
+    <button class="copy-btn" onclick="event.stopPropagation(); copyText('sol')">Copy</button>
+  </div>
+  <div id="sol" class="address">Dp5YavkzJ5Chtq6rFKnim7WR3xXksJVKg5iTKZjZZH7W</div>
+</div>
+
+<!-- XRP -->
+<div class="card" onclick="showQR('rNxp4h8apvRis6mJf9Sh8C6iRxfrDWN7AV')">
+  <div class="row">
+    <img src="xrp.png" height="25">
+    <button class="copy-btn" onclick="event.stopPropagation(); copyText('xrp')">Copy</button>
+  </div>
+  <div id="xrp" class="address">rNxp4h8apvRis6mJf9Sh8C6iRxfrDWN7AV</div>
+
+  <div class="row" style="margin-top:8px;">
+    <small>Memo</small>
+    <button class="copy-btn" onclick="event.stopPropagation(); copyText('memo')">Copy</button>
+  </div>
+  <div id="memo" class="address">437079162</div>
+</div>
+
+<!-- TRC -->
+<div class="card" onclick="showQR('TR3VgpXVS2rDMNwwCeR4DPdre5URfC9cQo')">
+  <div class="row">
+    <img src="trx.png" height="25">
+    <button class="copy-btn" onclick="event.stopPropagation(); copyText('trc')">Copy</button>
+  </div>
+  <div id="trc" class="address">TR3VgpXVS2rDMNwwCeR4DPdre5URfC9cQo</div>
+</div>
+
+<!-- BNB -->
+<div class="card" onclick="showQR('0x3391cc7250b2b035f38259cb2b49d2ad014d718b')">
+  <div class="row">
+    <img src="bnb.png" height="25">
+    <button class="copy-btn" onclick="event.stopPropagation(); copyText('bnb')">Copy</button>
+  </div>
+  <div id="bnb" class="address">0x3391cc7250b2b035f38259cb2b49d2ad014d718b</div>
+</div>
+
+<div id="toast" class="toast">Copied successfully</div>
+
+<!-- QR MODAL -->
+<div id="qrModal" class="qr-modal" onclick="closeQR()">
+  <div class="qr-box" onclick="event.stopPropagation()">
+    <canvas id="qrCanvas"></canvas>
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
 <script>
-const popup = document.getElementById('cryptoPopup');
-const cryptoLogo = document.getElementById('cryptoLogo');
-const cryptoName = document.getElementById('cryptoName');
-const cryptoAddress = document.getElementById('cryptoAddress');
-const cryptoQR = document.getElementById('cryptoQR');
-const cryptoNotice = document.getElementById('cryptoNotice');
-const copyAddressBtn = document.getElementById('copyAddressBtn');
-const copyMemoBtn = document.getElementById('copyMemoBtn');
-let currentMemo = '';
-
-function openCrypto(name, address, logo, network='', notice='', memo=''){
-  cryptoName.textContent = name + (network ? ' (' + network + ')' : '');
-  cryptoLogo.src = logo;
-  cryptoAddress.textContent = address;
-  cryptoNotice.textContent = notice || '';
-  currentMemo = memo || '';
-  copyMemoBtn.style.display = currentMemo ? 'inline-block' : 'none';
-  if(notice) alert(notice);
-  new QRious({ element: cryptoQR, value: address, size: 260 });
-  popup.style.display = 'flex';
+function goBack(){
+  window.history.back();
 }
 
-popup.addEventListener('click', e=>{
-  if(e.target === popup) popup.style.display='none';
-});
+function copyText(id){
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text);
 
-copyAddressBtn.addEventListener('click', ()=>{
-  navigator.clipboard.writeText(cryptoAddress.textContent)
-    .then(()=>alert('Address copied to clipboard!'))
-    .catch(()=>alert('Failed to copy.'));
-});
+  const toast = document.getElementById("toast");
+  toast.classList.add("show");
+  setTimeout(()=> toast.classList.remove("show"),1500);
+}
 
-copyMemoBtn.addEventListener('click', ()=>{
-  if(currentMemo){
-    navigator.clipboard.writeText(currentMemo)
-      .then(()=>alert('Memo copied to clipboard!'))
-      .catch(()=>alert('Failed to copy memo.'));
-  }
-});
+function showQR(address){
+  const modal = document.getElementById("qrModal");
+  modal.classList.add("show");
+
+  const canvas = document.getElementById("qrCanvas");
+  QRCode.toCanvas(canvas, address);
+}
+
+function closeQR(){
+  document.getElementById("qrModal").classList.remove("show");
+}
 </script>
 
 </body>
